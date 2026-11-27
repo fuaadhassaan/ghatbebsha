@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta name="description" content="ঘাট ব্যবসা — ব্যবসায়ী, কাস্টমার, মডেল আর মডারেটর, সবাই এক জায়গায়।">
+<meta name="theme-color" content="#04121f">
+<meta property="og:title" content="ঘাট ব্যবসা">
+<meta property="og:description" content="ঘাট ব্যবসার সবাই এক জায়গায়।">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 70'%3E%3Cpath d='M60 46V8' stroke='%23f6c453' stroke-width='5'/%3E%3Cpath d='M63 10v32l30-2z' fill='%23f6c453'/%3E%3Cpath d='M38 46q22-26 44 0z' fill='%232ee6c9'/%3E%3Cpath d='M4 44q56 10 112 0l-12 14q-44 10-88 0z' fill='%23ff9f43'/%3E%3C/svg%3E">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ঘাট ব্যবসা</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Galada&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04121f; --bg2:#08283b; --deep:#0b3a55;
+  --gold:#f6c453; --amber:#ff9f43; --aqua:#2ee6c9; --sky:#5cc8ff;
+  --text:#eaf6ff; --muted:#9db6c8; --stroke:rgba(255,255,255,.12);
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --wave-h:clamp(90px,15vh,150px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Hind Siliguri',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh;line-height:1.6}
+img{display:block;max-width:100%}
+button,input,textarea{font:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+
+/* ---------- background ---------- */
+#particles{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--aqua),var(--gold),var(--amber))}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,4vw,48px);transition:background .4s,padding .4s,box-shadow .4s;animation:dropIn 1s var(--ease) both .2s}
+.nav.scrolled{background:rgba(4,18,31,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding-top:10px;padding-bottom:10px;box-shadow:0 10px 30px -15px rgba(0,0,0,.6)}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Galada',cursive;font-size:26px;color:var(--gold)}
+.brand svg{width:38px;height:24px;animation:bob 4s ease-in-out infinite}
+.nav-link{position:relative;font-weight:500;color:var(--muted);transition:color .3s;padding:6px 2px}
+.nav-link::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .4s var(--ease)}
+.nav-link:hover{color:var(--text)}
+.nav-link:hover::after{transform:scaleX(1)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100vh;display:grid;place-items:center;text-align:center;overflow:hidden;padding:120px 20px calc(var(--wave-h) + 40px);background:radial-gradient(ellipse 90% 70% at 50% 0%,var(--deep) 0%,var(--bg2) 45%,var(--bg) 100%)}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 18s ease-in-out infinite alternate;pointer-events:none}
+.blob.b1{width:42vw;height:42vw;background:#0f766e;top:-12vw;left:-10vw}
+.blob.b2{width:36vw;height:36vw;background:#b45309;bottom:5vh;right:-10vw;animation-duration:22s;opacity:.35}
+.blob.b3{width:28vw;height:28vw;background:#1d4ed8;top:30%;left:55%;animation-duration:26s;opacity:.3}
+.ripples{position:absolute;left:50%;top:46%;width:0;height:0;pointer-events:none}
+.ripples span{position:absolute;left:-220px;top:-220px;width:440px;height:440px;border-radius:50%;border:1px solid rgba(46,230,201,.28);opacity:0;animation:ripple 7.5s ease-out infinite}
+.ripples span:nth-child(2){animation-delay:2.5s}
+.ripples span:nth-child(3){animation-delay:5s}
+.hero-inner{position:relative;z-index:2;will-change:transform,opacity}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;border:1px solid var(--stroke);background:rgba(255,255,255,.05);backdrop-filter:blur(8px);color:var(--aqua);font-weight:500;letter-spacing:.02em;animation:fadeUp 1s var(--ease) both .3s}
+.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--aqua);box-shadow:0 0 0 0 rgba(46,230,201,.7);animation:pulse 2s infinite}
+.title{font-family:'Galada',cursive;font-weight:400;font-size:clamp(64px,13vw,172px);line-height:1.25;margin:18px 0 6px;filter:drop-shadow(0 10px 40px rgba(246,196,83,.25))}
+.title .w{display:inline-block;overflow:hidden;padding:.12em .08em .05em;vertical-align:bottom}
+.title .w>span{display:inline-block;transform:translateY(115%) rotate(6deg);background:linear-gradient(100deg,var(--gold) 0%,#fff6d8 22%,var(--aqua) 45%,var(--gold) 65%,#ffd98a 85%,var(--gold) 100%);background-size:250% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rise 1.2s var(--ease) forwards,shine 7s linear infinite}
+.title .w:nth-child(2)>span{animation-delay:.28s,0s}
+.sub{max-width:620px;margin:0 auto;font-size:clamp(17px,2.2vw,21px);color:var(--muted);animation:fadeUp 1s var(--ease) both 1s}
+.hero-cta{margin-top:34px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;animation:fadeUp 1s var(--ease) both 1.2s}
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border:0;border-radius:999px;cursor:pointer;font-weight:600;font-size:17px;color:#1b1300;background:linear-gradient(135deg,var(--gold),var(--amber));box-shadow:0 14px 34px -12px rgba(255,159,67,.65);overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);transition:transform .8s var(--ease)}
+.btn:hover::before{transform:translateX(120%)}
+.btn:hover{box-shadow:0 18px 40px -10px rgba(255,159,67,.8)}
+.btn svg{width:18px;height:18px;transition:transform .3s}
+.btn:hover svg{transform:translateY(3px)}
+.btn.ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--stroke);box-shadow:none}
+.btn.small{padding:10px 20px;font-size:15px}
+.btn.loading{pointer-events:none;opacity:.8}
+.btn.loading::after{content:'';width:16px;height:16px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .7s linear infinite}
+.stat{margin-top:44px;display:inline-flex;align-items:baseline;gap:10px;animation:fadeUp 1s var(--ease) both 1.4s}
+.stat b{font-family:'Galada',cursive;font-weight:400;font-size:54px;line-height:1;color:var(--gold)}
+.stat span{color:var(--muted);font-size:18px}
+
+/* river */
+.boat{position:absolute;z-index:2;bottom:calc(var(--wave-h) * .42);left:0;animation:sail 46s linear infinite}
+.boat svg{width:clamp(90px,11vw,140px);height:auto;transform-origin:50% 80%;animation:rock 4.5s ease-in-out infinite}
+.waves{position:absolute;left:0;bottom:-1px;width:100%;height:var(--wave-h);z-index:3}
+.waves use{animation:wave 9s cubic-bezier(.55,.5,.45,.5) infinite}
+.waves use:nth-child(1){animation-delay:-2s;animation-duration:7s;fill:rgba(46,230,201,.22)}
+.waves use:nth-child(2){animation-delay:-3s;animation-duration:10s;fill:rgba(92,200,255,.18)}
+.waves use:nth-child(3){animation-delay:-4s;animation-duration:13s;fill:rgba(246,196,83,.12)}
+.waves use:nth-child(4){animation-delay:-5s;animation-duration:20s;fill:var(--bg)}
+
+/* ---------- marquee ---------- */
+.marquee{position:relative;z-index:1;overflow:hidden;padding:22px 0;border-top:1px solid var(--stroke);border-bottom:1px solid var(--stroke);background:rgba(255,255,255,.02);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.track{display:flex;width:max-content;animation:marquee 40s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.track span{display:inline-flex;align-items:center;gap:28px;padding-right:28px;font-family:'Galada',cursive;font-size:clamp(22px,3vw,30px);color:rgba(234,246,255,.55);white-space:nowrap}
+.track span i{font-style:normal;color:var(--gold);font-size:.7em}
+
+/* ---------- people ---------- */
+.section{position:relative;z-index:1;padding:110px clamp(18px,4vw,48px) 120px;max-width:1240px;margin:0 auto}
+.head{text-align:center;margin-bottom:64px}
+.head h2{font-family:'Galada',cursive;font-weight:400;font-size:clamp(40px,6vw,64px);line-height:1.3;color:var(--text)}
+.head h2 em{font-style:normal;color:var(--gold)}
+.head .line{display:block;width:120px;height:4px;margin:14px auto 18px;border-radius:4px;background:linear-gradient(90deg,var(--aqua),var(--gold));transform:scaleX(0);transition:transform 1.2s var(--ease) .3s}
+.head p{color:var(--muted);max-width:560px;margin:0 auto}
+.reveal{opacity:0;transform:translateY(50px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+.reveal.in .line{transform:scaleX(1)}
+
+.group{margin-bottom:84px}
+.group:last-child{margin-bottom:0}
+.ghead{display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:34px}
+.ghead::before,.ghead::after{content:'';flex:1;max-width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(246,196,83,.55));transform:scaleX(0);transition:transform 1.2s var(--ease) .2s}
+.ghead::before{transform-origin:100% 50%}
+.ghead::after{background:linear-gradient(270deg,transparent,rgba(246,196,83,.55));transform-origin:0 50%}
+.ghead.in::before,.ghead.in::after{transform:scaleX(1)}
+.ghead h3{display:inline-flex;align-items:center;gap:10px;padding:10px 24px;border-radius:999px;font-size:clamp(20px,2.6vw,26px);font-weight:700;color:var(--gold);background:rgba(246,196,83,.08);border:1px solid rgba(246,196,83,.3);white-space:nowrap}
+.ghead h3 i{font-style:normal;font-size:.8em;animation:spin 6s linear infinite;display:inline-block}
+.grid{display:flex;flex-wrap:wrap;justify-content:center;gap:30px}
+.grid>.card-wrap{width:290px;max-width:100%}
+.group.lead .card-wrap{width:330px}
+.group.lead .ring{width:184px;height:184px}
+.card-wrap{opacity:0;transform:translateY(70px) scale(.92) rotateX(12deg);transition:opacity .9s var(--ease),transform 1.1s var(--ease);transition-delay:var(--d,0s);perspective:1000px}
+.card-wrap.in{opacity:1;transform:none}
+.card{position:relative;height:100%;padding:36px 24px 28px;border-radius:26px;text-align:center;cursor:pointer;outline:none;overflow:hidden;background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.02));border:1px solid var(--stroke);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));transition:transform .25s ease-out,box-shadow .5s,border-color .5s}
+.card:hover,.card:focus-visible{--ty:-10px;border-color:rgba(246,196,83,.55);box-shadow:0 34px 70px -24px rgba(46,230,201,.45),0 0 0 1px rgba(246,196,83,.2) inset}
+.card .glow{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),rgba(246,196,83,.2),transparent 45%)}
+.card:hover .glow{opacity:1}
+.card::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(255,255,255,.14),transparent);transform:skewX(-20deg);transition:left .9s var(--ease)}
+.card:hover::after{left:130%}
+.ring{position:relative;width:156px;height:156px;margin:0 auto 22px;border-radius:50%;padding:4px;overflow:hidden;animation:bob 5.5s ease-in-out infinite;animation-delay:var(--bd,0s);box-shadow:0 18px 40px -16px rgba(46,230,201,.6)}
+.ring::before{content:'';position:absolute;inset:-50%;background:conic-gradient(from 0deg,var(--gold),var(--aqua),var(--sky),var(--amber),var(--gold));animation:spin 5s linear infinite}
+.card:hover .ring::before{animation-duration:1.6s}
+.photo{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--bg2);border:4px solid var(--bg)}
+.photo img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.card:hover .photo img{transform:scale(1.13)}
+.initial{width:100%;height:100%;display:grid;place-items:center;font-family:'Galada',cursive;font-size:62px;line-height:1;color:var(--gold);background:radial-gradient(circle at 30% 25%,#14608a,#082236)}
+.card h3{font-size:23px;font-weight:700;line-height:1.35;margin-bottom:8px}
+.exp{display:inline-flex;align-items:center;gap:7px;max-width:100%;padding:6px 14px;margin-bottom:14px;border-radius:999px;background:rgba(46,230,201,.12);border:1px solid rgba(46,230,201,.25);color:var(--aqua);font-size:14px;font-weight:500}
+.exp svg{flex:none;width:15px;height:15px}
+.exp b{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.exp.aka{border-radius:16px;background:rgba(246,196,83,.1);border-color:rgba(246,196,83,.3);color:var(--gold)}
+.exp.aka b{white-space:normal;line-height:1.45}
+.info>.exp{margin-bottom:4px}
+.desc{color:var(--muted);font-size:15.5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:4.8em}
+.more{display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:var(--gold);font-weight:600;font-size:15px}
+.more svg{width:16px;height:16px;transition:transform .35s var(--ease)}
+.card:hover .more svg{transform:translateX(6px)}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);font-size:20px;padding:40px}
+.empty .btn{margin-left:10px}
+.loading-msg::after{content:' …';animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{50%{opacity:.2}}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:1;text-align:center;padding:50px 20px 70px;border-top:1px solid var(--stroke);color:var(--muted)}
+footer .brand{justify-content:center;margin-bottom:8px}
+
+/* ---------- modals ---------- */
+.modal{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:20px;background:rgba(2,10,18,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.modal.open{opacity:1;visibility:visible}
+.box{position:relative;width:min(860px,100%);max-height:calc(100vh - 40px);overflow:auto;border-radius:28px;background:linear-gradient(160deg,#0d3550,#061a2b);border:1px solid var(--stroke);box-shadow:0 40px 100px -30px rgba(0,0,0,.8);transform:translateY(40px) scale(.9);transition:transform .6s cubic-bezier(.2,.9,.3,1.25)}
+.modal.open .box{transform:none}
+.close{position:absolute;top:14px;right:14px;z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid var(--stroke);background:rgba(255,255,255,.06);cursor:pointer;display:grid;place-items:center;transition:transform .35s var(--ease),background .3s}
+.close:hover{transform:rotate(90deg);background:rgba(255,255,255,.14)}
+.close svg{width:18px;height:18px}
+.detail{display:grid;grid-template-columns:minmax(220px,340px) 1fr;gap:34px;padding:38px}
+.detail .pic{border-radius:22px;overflow:hidden;aspect-ratio:4/5;background:var(--bg2);box-shadow:0 24px 60px -24px rgba(46,230,201,.55);opacity:0;transform:translateX(-30px) scale(.95);transition:all .8s var(--ease) .15s}
+.detail .pic img{width:100%;height:100%;object-fit:cover}
+.detail .pic .initial{font-size:120px;border-radius:0}
+.detail .info>*{opacity:0;transform:translateY(20px);transition:all .7s var(--ease)}
+.modal.open .detail .pic,.modal.open .detail .info>*{opacity:1;transform:none}
+.modal.open .detail .info>*:nth-child(1){transition-delay:.25s}
+.modal.open .detail .info>*:nth-child(2){transition-delay:.35s}
+.modal.open .detail .info>*:nth-child(3){transition-delay:.45s}
+.modal.open .detail .info>*:nth-child(4){transition-delay:.55s}
+.modal.open .detail .info>*:nth-child(5){transition-delay:.65s}
+.detail h3{font-family:'Galada',cursive;font-weight:400;font-size:clamp(34px,5vw,48px);line-height:1.3;color:var(--gold);padding-right:40px}
+.label{display:flex;align-items:center;gap:8px;margin-top:22px;margin-bottom:6px;color:var(--aqua);font-weight:600;font-size:15px;letter-spacing:.02em}
+.label svg{width:17px;height:17px}
+.detail p{white-space:pre-wrap;color:#cfe2ee;font-size:16.5px}
+
+.login .box{width:min(420px,100%);padding:40px 34px 34px;text-align:center}
+.login .lock{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold),var(--amber));color:#1b1300;animation:bob 3s ease-in-out infinite}
+.login .lock svg{width:28px;height:28px}
+.login h3{font-size:24px;margin-bottom:22px}
+.field{display:block;text-align:left;margin-bottom:16px}
+.field span{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:13px 16px;border-radius:14px;border:1px solid var(--stroke);background:rgba(0,0,0,.25);outline:none;transition:border-color .3s,box-shadow .3s}
+.field textarea{resize:vertical;min-height:96px}
+.field input:focus,.field textarea:focus{border-color:var(--aqua);box-shadow:0 0 0 4px rgba(46,230,201,.15)}
+.err{min-height:22px;color:#ff8a8a;font-size:14px;margin-bottom:10px}
+.shake{animation:shake .5s}
+.login .btn{width:100%;justify-content:center}
+
+/* ---------- admin ---------- */
+.fab{position:fixed;right:22px;bottom:22px;z-index:45;width:54px;height:54px;border-radius:50%;border:1px solid var(--stroke);cursor:pointer;display:grid;place-items:center;background:rgba(8,40,59,.8);backdrop-filter:blur(10px);box-shadow:0 12px 30px -10px rgba(0,0,0,.6);transition:transform .35s var(--ease),background .3s;animation:fadeUp 1s both 2s}
+.fab:hover{transform:scale(1.1) rotate(-8deg);background:rgba(246,196,83,.25)}
+.fab svg{width:22px;height:22px;color:var(--gold)}
+.fab .tip{position:absolute;right:66px;white-space:nowrap;padding:6px 12px;border-radius:10px;background:rgba(0,0,0,.7);font-size:13px;opacity:0;transform:translateX(8px);transition:.3s;pointer-events:none}
+.fab:hover .tip{opacity:1;transform:none}
+
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:80;width:min(500px,100%);display:flex;flex-direction:column;background:linear-gradient(180deg,#0b2e45,#05192a);border-left:1px solid var(--stroke);box-shadow:-30px 0 80px -20px rgba(0,0,0,.7);transform:translateX(105%);transition:transform .6s var(--ease)}
+.drawer.open{transform:none}
+.shade{position:fixed;inset:0;z-index:79;background:rgba(2,10,18,.55);opacity:0;visibility:hidden;transition:.4s}
+.shade.open{opacity:1;visibility:visible}
+.dhead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:20px 22px;border-bottom:1px solid var(--stroke)}
+.dhead h3{font-size:21px}
+.dhead .acts{display:flex;gap:8px}
+.dbody{flex:1;overflow:auto;padding:20px 22px 40px}
+.alist{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.arow{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid transparent;transition:border-color .3s,background .3s;animation:fadeUp .5s var(--ease) both;animation-delay:var(--d,0s)}
+.arow:hover{border-color:var(--stroke);background:rgba(255,255,255,.08)}
+.arow .thumb{flex:none;width:48px;height:48px;border-radius:50%;overflow:hidden;background:var(--bg2)}
+.arow .thumb img{width:100%;height:100%;object-fit:cover}
+.arow .thumb .initial{font-size:22px}
+.arow .nm{flex:1;min-width:0}
+.arow .nm b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arow .nm small{display:block;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib{flex:none;width:34px;height:34px;border-radius:10px;border:1px solid var(--stroke);background:rgba(255,255,255,.04);cursor:pointer;display:grid;place-items:center;transition:background .25s,transform .25s,color .25s}
+.ib:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}
+.ib:disabled{opacity:.3;pointer-events:none}
+.ib svg{width:16px;height:16px}
+.ib.danger.armed{background:#d64545;color:#fff;width:auto;padding:0 10px;font-size:13px}
+.aform{display:none;padding:22px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);animation:fadeUp .5s var(--ease) both}
+.aform.show{display:block}
+.aform h4{font-size:18px;margin-bottom:16px}
+.picker{position:relative;display:block;width:130px;height:130px;margin:0 auto 18px;border-radius:50%;overflow:hidden;cursor:pointer;background:var(--bg2);border:3px dashed rgba(246,196,83,.5)}
+.picker img{width:100%;height:100%;object-fit:cover}
+.picker .initial{font-size:48px}
+.picker .ov{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.5);opacity:0;transition:.3s;font-size:13px;text-align:center;padding:10px}
+.picker:hover .ov{opacity:1}
+.picker input{display:none}
+.frow{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+.confirm{display:none;padding:22px;border-radius:20px;text-align:center;background:linear-gradient(160deg,rgba(246,196,83,.12),rgba(46,230,201,.06));border:1px solid rgba(246,196,83,.4);animation:fadeUp .5s var(--ease) both}
+.confirm.show{display:block}
+.confirm h4{font-size:18px;margin-bottom:4px}
+.confirm>p{color:var(--muted);font-size:14px;margin-bottom:16px}
+.confirm .card{cursor:default;margin:0 auto 18px;max-width:300px;transform:none}
+.confirm .frow{justify-content:center}
+.ib.danger.armed svg{display:none}
+
+.toast{position:fixed;left:50%;bottom:28px;z-index:100;padding:13px 22px;border-radius:14px;background:#0f3b55;border:1px solid var(--stroke);box-shadow:0 20px 50px -20px rgba(0,0,0,.7);transform:translate(-50%,calc(100% + 60px));visibility:hidden;transition:transform .5s cubic-bezier(.2,.9,.3,1.3),visibility .5s;max-width:calc(100% - 40px)}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+.toast.bad{background:#5a1f26}
+
+/* ---------- keyframes ---------- */
+@keyframes rise{to{transform:none}}
+@keyframes shine{to{background-position:-250% center}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes dropIn{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:none}}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,4vh) scale(1.15)}100%{transform:translate(-4vw,8vh) scale(.95)}}
+@keyframes ripple{0%{transform:scale(.15);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,230,201,.7)}70%{box-shadow:0 0 0 12px rgba(46,230,201,0)}100%{box-shadow:0 0 0 0 rgba(46,230,201,0)}}
+@keyframes wave{0%{transform:translate3d(-90px,0,0)}100%{transform:translate3d(85px,0,0)}}
+@keyframes sail{from{transform:translateX(-180px)}to{transform:translateX(calc(100vw + 40px))}}
+@keyframes rock{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(7px) rotate(3deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes wheel{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
+@keyframes shake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-8px)}40%,60%{transform:translateX(8px)}}
+
+@media (max-width:720px){
+  .detail{grid-template-columns:1fr;padding:26px 22px;gap:22px}
+  .detail .pic{max-width:300px;margin:0 auto;width:100%}
+  .nav-link{display:none}
+  .stat b{font-size:44px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .boat{display:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles" aria-hidden="true"></canvas>
+<div id="progress"></div>
+
+<nav class="nav" id="nav">
+  <a href="#top" class="brand" aria-label="ঘাট ব্যবসা">
+    <svg viewBox="0 0 120 70" aria-hidden="true"><path d="M60 46V8" stroke="#f6c453" stroke-width="3"/><path d="M63 10v32l30-2z" fill="#f6c453"/><path d="M38 46q22-26 44 0z" fill="#2ee6c9"/><path d="M4 44q56 10 112 0l-12 14q-44 10-88 0z" fill="#ff9f43"/></svg>
+    ঘাট ব্যবসা
+  </a>
+  <a href="#people" class="nav-link">সদস্যরা</a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="ripples" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <div class="hero-inner" id="heroInner">
+    <p class="eyebrow"><span class="dot"></span>ঘাটের সবচেয়ে আলোচিত মুখগুলো</p>
+    <h1 class="title"><span class="w"><span>ঘাট</span></span> <span class="w"><span>ব্যবসা</span></span></h1>
+    <p class="sub">ব্যবসায়ী, কাস্টমার, মডেল আর মডারেটর — ঘাট ব্যবসার সবাই এক জায়গায়।</p>
+    <div class="hero-cta">
+      <a href="#people" class="btn" id="cta">পরিচিত হোন
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </div>
+    <div class="stat"><b id="count">০</b><span>জন সদস্য</span></div>
+  </div>
+
+  <div class="boat" aria-hidden="true">
+    <svg viewBox="0 0 120 70"><path d="M60 46V6" stroke="#5b3a1a" stroke-width="2.5"/><path d="M62.5 8v34l32-3z" fill="#f6c453"/><path d="M62.5 8v34l16-1.5z" fill="#ffe29a" opacity=".55"/><path d="M36 46q24-28 48 0z" fill="#8a5a2b"/><path d="M42 46q18-19 36 0" fill="none" stroke="#c48a4a" stroke-width="2"/><path d="M2 43q58 12 116 0l-13 15q-45 11-90 0z" fill="#3b2412"/><path d="M8 47q52 9 104 0" fill="none" stroke="#ff9f43" stroke-width="2.5"/></svg>
+  </div>
+
+  <svg class="waves" viewBox="0 24 150 28" preserveAspectRatio="none" aria-hidden="true">
+    <defs><path id="gw" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18v44h-352z"/></defs>
+    <g>
+      <use href="#gw" xlink:href="#gw" x="48" y="0"/>
+      <use href="#gw" xlink:href="#gw" x="48" y="3"/>
+      <use href="#gw" xlink:href="#gw" x="48" y="5"/>
+      <use href="#gw" xlink:href="#gw" x="48" y="7"/>
+    </g>
+  </svg>
+</header>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="track"></div></div>
+
+<main class="section" id="people">
+  <div class="head reveal">
+    <h2>ঘাট ব্যবসার <em>সদস্যরা</em></h2>
+    <span class="line"></span>
+    <p>যাঁদের ছাড়া ঘাট অচল — কার্ডে ক্লিক করে বিস্তারিত দেখুন।</p>
+  </div>
+  <div id="grid"></div>
+</main>
+
+<footer>
+  <div class="brand">ঘাট ব্যবসা</div>
+  <small>© <span id="year"></span> ঘাট ব্যবসা · সর্বস্বত্ব সংরক্ষিত</small>
+</footer>
+
+<!-- person detail -->
+<div class="modal" id="detailModal" role="dialog" aria-modal="true" aria-label="বিস্তারিত">
+  <div class="box">
+    <button class="close" data-close aria-label="বন্ধ করুন"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="detail" id="detail"></div>
+  </div>
+</div>
+
+<!-- admin login -->
+<div class="modal login" id="loginModal" role="dialog" aria-modal="true" aria-label="অ্যাডমিন লগইন">
+  <div class="box">
+    <button class="close" data-close aria-label="বন্ধ করুন"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 018 0v3"/></svg></div>
+    <h3>অ্যাডমিন লগইন</h3>
+    <form id="loginForm" autocomplete="off">
+      <label class="field"><span>ইউজার</span><input id="lu" required inputmode="numeric" autocomplete="username"></label>
+      <label class="field"><span>পাসওয়ার্ড</span><input id="lp" type="password" required autocomplete="current-password"></label>
+      <div class="err" id="lerr"></div>
+      <button class="btn" type="submit" id="lbtn">প্রবেশ করুন</button>
+    </form>
+  </div>
+</div>
+
+<!-- admin panel -->
+<div class="shade" id="shade"></div>
+<aside class="drawer" id="drawer" aria-label="অ্যাডমিন প্যানেল">
+  <div class="dhead">
+    <h3>অ্যাডমিন প্যানেল</h3>
+    <div class="acts">
+      <button class="btn ghost small" id="logout">লগআউট</button>
+      <button class="close" style="position:static" id="drawerClose" aria-label="বন্ধ করুন"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+  </div>
+  <div class="dbody">
+    <button class="btn small" id="addBtn">+ নতুন সদস্য যোগ করুন</button>
+    <form class="aform" id="aform" autocomplete="off" style="margin-top:16px">
+      <h4 id="aformTitle">নতুন সদস্য</h4>
+      <label class="picker" title="ছবি বেছে নিন">
+        <span id="pickPreview" style="display:block;width:100%;height:100%"></span>
+        <span class="ov">ছবি বেছে নিন</span>
+        <input type="file" id="fphoto" accept="image/*">
+      </label>
+      <label class="field"><span>পদ / বিভাগ <small>তালিকা থেকে বাছুন বা নতুন লিখুন</small></span><input id="frole" maxlength="40" list="roleList" placeholder="যেমন: অন্যান্য মডেল"></label>
+      <datalist id="roleList"></datalist>
+      <label class="field"><span>নাম <small id="cn"></small></span><input id="fname" maxlength="80" required></label>
+      <label class="field"><span>ওরফে / ডাকনাম <small id="ca"></small></span><input id="faka" maxlength="200" placeholder="একাধিক হলে কমা দিয়ে লিখুন"></label>
+      <label class="field"><span>সংক্ষিপ্ত পরিচিতি <small id="cd"></small></span><textarea id="fdesc" maxlength="700"></textarea></label>
+      <div class="err" id="ferr"></div>
+      <div class="frow">
+        <button type="button" class="btn ghost small" id="fcancel">বাতিল</button>
+        <button type="submit" class="btn small">পরবর্তী: যাচাই করুন</button>
+      </div>
+    </form>
+    <div class="confirm" id="confirm" style="margin-top:16px">
+      <h4>সবকিছু ঠিক আছে?</h4>
+      <p>ওয়েবসাইটে ঠিক এভাবেই দেখাবে। নিশ্চিত করলে তবেই আপলোড হবে।</p>
+      <div id="confirmPreview"></div>
+      <div class="err" id="cerr"></div>
+      <div class="frow">
+        <button type="button" class="btn ghost small" id="cback">← ফিরে গিয়ে বদলান</button>
+        <button type="button" class="btn small" id="cok">নিশ্চিত করুন ও আপলোড করুন</button>
+      </div>
+    </div>
+    <div class="alist" id="alist"></div>
+  </div>
+</aside>
+
+<button class="fab" id="fab" aria-label="অ্যাডমিন">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+  <span class="tip">অ্যাডমিন</span>
+</button>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------------- utilities ---------------- */
+  var BN = '০১২৩৪৫৬৭৮৯';
+  function bn(n) { return String(n).replace(/\d/g, function (d) { return BN[d]; }); }
+  function $(s, r) { return (r || document).querySelector(s); }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  var API = 'https://script.google.com/macros/s/AKfycby6dhbSBziVSUHuJTRtX7JVjntRWCUoVpoxe0xRLPAWXd0evzfnGkXJP75zihjtEXO6/exec';
+  var REDUCE = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var ICON = {
+    exp: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18"/></svg>',
+    arrow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+    tag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0L3 13V3h10l7.6 7.6a2 2 0 010 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>',
+    user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>',
+    up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>',
+    down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>',
+    edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>',
+    del: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>'
+  };
+
+  function initialOf(name) {
+    name = (name || '').trim();
+    if (!name) return '?';
+    try {
+      if (window.Intl && Intl.Segmenter) {
+        var it = new Intl.Segmenter('bn', { granularity: 'grapheme' }).segment(name)[Symbol.iterator]();
+        return it.next().value.segment;
+      }
+    } catch (e) {}
+    return name.charAt(0);
+  }
+
+  /** Photo element with a Drive fallback URL, then an initial-letter avatar. */
+  function photoEl(p) {
+    var initial = el('div', 'initial', initialOf(p.name));
+    if (!p.photoUrl) return initial;
+    var img = new Image();
+    img.alt = p.name || '';
+    img.loading = 'lazy';
+    img.referrerPolicy = 'no-referrer';
+    var triedFallback = false;
+    img.onerror = function () {
+      if (!triedFallback && p.photoFallback) { triedFallback = true; img.src = p.photoFallback; }
+      else if (img.parentNode) { img.parentNode.replaceChild(initial, img); }
+    };
+    img.src = p.photoUrl;
+    return img;
+  }
+
+  /**
+   * Calls the Apps Script backend. text/plain keeps it a "simple" request (no CORS preflight),
+   * and no cookies are sent, so phones signed in to several Google accounts work too.
+   */
+  function run(fn) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ fn: fn, args: args }),
+      credentials: 'omit',
+      redirect: 'follow'
+    }).then(function (r) {
+      if (!r.ok) throw new Error('সার্ভারে সমস্যা (' + r.status + ')। একটু পরে আবার চেষ্টা করুন।');
+      return r.json();
+    }, function () {
+      throw new Error('ইন্টারনেট সংযোগ পাওয়া যাচ্ছে না।');
+    }).then(function (j) {
+      if (!j || !j.ok) throw new Error((j && j.error) || 'কিছু একটা ভুল হয়েছে।');
+      return j.result;
+    });
+  }
+  function loadPeople() {
+    return fetch(API + '?api=people&t=' + Date.now(), { credentials: 'omit', redirect: 'follow' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (j) { if (!j || !j.ok) throw new Error('bad'); return j.result; });
+  }
+  function msgOf(err) {
+    return String((err && err.message) || err || 'কিছু একটা ভুল হয়েছে।')
+      .replace(/^(Exception|Error):\s*/i, '').replace('[AUTH] ', '');
+  }
+
+  var toastTimer;
+  function toast(text, bad) {
+    var t = $('#toast');
+    t.textContent = text;
+    t.className = 'toast show' + (bad ? ' bad' : '');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.className = 'toast' + (bad ? ' bad' : ''); }, 3200);
+  }
+
+  /* ---------------- data ---------------- */
+  // Last list seen on this device, so a returning visitor sees members instantly while fresh data loads.
+  var people = [], loaded = false;
+  try { people = JSON.parse(localStorage.getItem('gb_people') || '[]'); } catch (e) { people = []; }
+  if (!Array.isArray(people)) people = [];
+  function cachePeople() { try { localStorage.setItem('gb_people', JSON.stringify(people)); } catch (e) {} }
+
+  // Sections appear in this order; any new role the admin types goes after these.
+  var ROLE_ORDER = ['প্রধান ব্যবসায়ী', 'প্রধান কাস্টমার', 'প্রধান মডেল', 'অন্যান্য মডেল', 'ব্যবসা মডারেটর', 'পুরাতন নিয়মিত কাস্টমার'];
+  var OTHER_ROLE = 'অন্যান্য';
+  function roleOf(p) { return (p.role || '').trim() || OTHER_ROLE; }
+  function groupPeople() {
+    var map = {}, order = ROLE_ORDER.slice();
+    people.forEach(function (p) {
+      var r = roleOf(p);
+      if (!map[r]) map[r] = [];
+      map[r].push(p);
+      if (order.indexOf(r) === -1) order.push(r);
+    });
+    return order.filter(function (r) { return map[r]; }).map(function (r) { return { role: r, list: map[r] }; });
+  }
+  function allRoles() {
+    var out = ROLE_ORDER.slice();
+    people.forEach(function (p) { var r = roleOf(p); if (out.indexOf(r) === -1) out.push(r); });
+    return out;
+  }
+
+  /* ---------------- reveal on scroll ---------------- */
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' }) : null;
+  function observe(node) { if (io) io.observe(node); else node.classList.add('in'); }
+  document.querySelectorAll('.reveal').forEach(observe);
+
+  /* ---------------- public render ---------------- */
+  /** One person card: photo on top, then name, nickname, short description. */
+  function buildCard(p, i, interactive) {
+    var card = el('article', 'card');
+    card.appendChild(el('div', 'glow'));
+
+    var ring = el('div', 'ring');
+    ring.style.setProperty('--bd', (-(i * 0.7)) + 's');
+    var ph = el('div', 'photo');
+    ph.appendChild(p.previewSrc ? previewImg(p.previewSrc) : photoEl(p));
+    ring.appendChild(ph);
+    card.appendChild(ring);
+
+    card.appendChild(el('h3', null, p.name));
+    if (p.aka) {
+      var aka = el('div', 'exp aka');
+      aka.innerHTML = ICON.tag;
+      aka.appendChild(el('b', null, 'ওরফে ' + p.aka));
+      card.appendChild(aka);
+    }
+    card.appendChild(el('p', 'desc', p.description));
+
+    if (interactive) {
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', (p.name || '') + ' — বিস্তারিত');
+      var more = el('span', 'more', 'বিস্তারিত ');
+      more.insertAdjacentHTML('beforeend', ICON.arrow);
+      card.appendChild(more);
+      card.addEventListener('click', function () { openDetail(p); });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDetail(p); }
+      });
+      if (!REDUCE) addTilt(card);
+    }
+    return card;
+  }
+  function previewImg(src) { var img = new Image(); img.src = src; img.alt = ''; return img; }
+
+  function renderGrid() {
+    var root = $('#grid');
+    root.textContent = '';
+    if (!people.length) { root.appendChild(el('p', 'empty', 'শীঘ্রই আসছে…')); }
+    var n = 0;
+    groupPeople().forEach(function (g) {
+      var sec = el('section', 'group' + (/^প্রধান/.test(g.role) ? ' lead' : ''));
+      var head = el('div', 'ghead');
+      var h = el('h3');
+      h.appendChild(el('i', null, '✦'));
+      h.appendChild(document.createTextNode(g.role));
+      head.appendChild(h);
+      sec.appendChild(head);
+      observe(head);
+
+      var grid = el('div', 'grid');
+      g.list.forEach(function (p, k) {
+        var wrap = el('div', 'card-wrap');
+        wrap.style.setProperty('--d', (Math.min(k, 3) * 0.12 + 0.1) + 's');
+        wrap.appendChild(buildCard(p, n++, true));
+        grid.appendChild(wrap);
+        observe(wrap);
+      });
+      sec.appendChild(grid);
+      root.appendChild(sec);
+    });
+    renderMarquee();
+    animateCount(people.length);
+  }
+
+  function addTilt(card) {
+    card.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'touch') return;
+      var r = card.getBoundingClientRect();
+      var x = e.clientX - r.left, y = e.clientY - r.top;
+      card.style.setProperty('--mx', x + 'px');
+      card.style.setProperty('--my', y + 'px');
+      card.style.setProperty('--rx', ((y / r.height - 0.5) * -12).toFixed(2) + 'deg');
+      card.style.setProperty('--ry', ((x / r.width - 0.5) * 14).toFixed(2) + 'deg');
+    });
+    card.addEventListener('pointerleave', function () {
+      card.style.setProperty('--rx', '0deg');
+      card.style.setProperty('--ry', '0deg');
+    });
+  }
+
+  function renderMarquee() {
+    var track = $('#track');
+    track.textContent = '';
+    var names = [];
+    people.forEach(function (p) {
+      if (p.name) names.push(p.name);
+      if (p.aka) p.aka.split(/[,،]/).forEach(function (a) { a = a.trim(); if (a) names.push(a); });
+    });
+    if (!names.length) names = ['ঘাট ব্যবসা'];
+    var half = [];
+    while (half.length < 14) half = half.concat(names);
+    half.concat(half).forEach(function (n) {
+      var s = el('span', null, n);
+      s.appendChild(el('i', null, '✦'));
+      track.appendChild(s);
+    });
+    track.style.animationDuration = Math.max(30, half.length * 3.2) + 's';
+  }
+
+  var countRaf;
+  function animateCount(target) {
+    var node = $('#count');
+    cancelAnimationFrame(countRaf);
+    if (REDUCE) { node.textContent = bn(target); return; }
+    var start = null, from = 0, dur = 1800;
+    function step(ts) {
+      if (start === null) start = ts;
+      var k = Math.min(1, (ts - start) / dur);
+      var eased = 1 - Math.pow(1 - k, 3);
+      node.textContent = bn(Math.round(from + (target - from) * eased));
+      if (k < 1) countRaf = requestAnimationFrame(step);
+    }
+    setTimeout(function () { countRaf = requestAnimationFrame(step); }, 1300);
+  }
+
+  /* ---------------- detail modal ---------------- */
+  var lastFocus = null;
+  function openModal(m) {
+    lastFocus = document.activeElement;
+    m.classList.add('open');
+    var f = m.querySelector('input, .close');
+    if (f) setTimeout(function () { f.focus(); }, 60);
+  }
+  function closeModal(m) {
+    m.classList.remove('open');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  document.querySelectorAll('.modal').forEach(function (m) {
+    m.addEventListener('click', function (e) {
+      if (e.target === m || e.target.closest('[data-close]')) closeModal(m);
+    });
+  });
+
+  function openDetail(p) {
+    var d = $('#detail');
+    d.textContent = '';
+    var pic = el('div', 'pic');
+    pic.appendChild(photoEl(p));
+    d.appendChild(pic);
+
+    var info = el('div', 'info');
+    var role = el('div', 'exp');
+    role.innerHTML = ICON.exp;
+    role.appendChild(el('b', null, roleOf(p)));
+    info.appendChild(role);
+    info.appendChild(el('h3', null, p.name));
+    if (p.aka) {
+      var l1 = el('div', 'label'); l1.innerHTML = ICON.tag; l1.appendChild(document.createTextNode('ওরফে'));
+      info.appendChild(l1);
+      info.appendChild(el('p', null, p.aka));
+    }
+    if (p.description) {
+      var l2 = el('div', 'label'); l2.innerHTML = ICON.user; l2.appendChild(document.createTextNode('পরিচিতি'));
+      info.appendChild(l2);
+      info.appendChild(el('p', null, p.description));
+    }
+    d.appendChild(info);
+    openModal($('#detailModal'));
+  }
+
+  /* ---------------- motion: scroll, parallax, particles ---------------- */
+  var nav = $('#nav'), bar = $('#progress'), heroInner = $('#heroInner'), ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var y = window.scrollY || document.documentElement.scrollTop;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+      nav.classList.toggle('scrolled', y > 30);
+      if (!REDUCE && y < window.innerHeight * 1.2) {
+        heroInner.style.transform = 'translateY(' + (y * 0.35) + 'px)';
+        heroInner.style.opacity = String(Math.max(0, 1 - y / (window.innerHeight * 0.75)));
+      }
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // magnetic CTA
+  var cta = $('#cta');
+  if (!REDUCE) {
+    cta.addEventListener('pointermove', function (e) {
+      var r = cta.getBoundingClientRect();
+      cta.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * 0.25) + 'px,' + ((e.clientY - r.top - r.height / 2) * 0.35) + 'px)';
+    });
+    cta.addEventListener('pointerleave', function () { cta.style.transform = ''; });
+  }
+
+  // particles: soft lights drifting up like reflections on water
+  (function particles() {
+    if (REDUCE) return;
+    var c = $('#particles'), ctx = c.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), W, H, dots = [], running = true;
+    var colors = ['246,196,83', '46,230,201', '92,200,255'];
+    function size() {
+      W = window.innerWidth; H = window.innerHeight;
+      c.width = W * dpr; c.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = Math.min(80, Math.round(W / 18));
+      dots = [];
+      for (var i = 0; i < n; i++) dots.push(make(true));
+    }
+    function make(anyY) {
+      return {
+        x: Math.random() * W, y: anyY ? Math.random() * H : H + 10,
+        r: Math.random() * 2.2 + 0.6, vy: Math.random() * 0.35 + 0.12,
+        vx: (Math.random() - 0.5) * 0.2, a: Math.random() * 0.5 + 0.2,
+        t: Math.random() * Math.PI * 2, c: colors[(Math.random() * colors.length) | 0]
+      };
+    }
+    function frame() {
+      if (!running) return;
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < dots.length; i++) {
+        var d = dots[i];
+        d.y -= d.vy; d.x += d.vx + Math.sin(d.t) * 0.15; d.t += 0.02;
+        if (d.y < -10) dots[i] = d = make(false);
+        var alpha = d.a * (0.6 + 0.4 * Math.sin(d.t * 1.5));
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(' + d.c + ',' + alpha.toFixed(3) + ')';
+        ctx.shadowColor = 'rgba(' + d.c + ',0.9)';
+        ctx.shadowBlur = 8;
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(frame);
+    }
+    window.addEventListener('resize', size);
+    document.addEventListener('visibilitychange', function () {
+      running = !document.hidden;
+      if (running) requestAnimationFrame(frame);
+    });
+    size();
+    requestAnimationFrame(frame);
+  })();
+
+  $('#year').textContent = bn(new Date().getFullYear());
+
+  /* ---------------- admin ---------------- */
+  var token = null;
+  try { token = sessionStorage.getItem('gb_token'); } catch (e) {}
+  function setToken(t) {
+    token = t;
+    try { t ? sessionStorage.setItem('gb_token', t) : sessionStorage.removeItem('gb_token'); } catch (e) {}
+  }
+
+  var drawer = $('#drawer'), shade = $('#shade'), loginModal = $('#loginModal');
+  function openDrawer() { renderAdminList(); hideForm(); drawer.classList.add('open'); shade.classList.add('open'); }
+  function closeDrawer() { drawer.classList.remove('open'); shade.classList.remove('open'); }
+  shade.addEventListener('click', closeDrawer);
+  $('#drawerClose').addEventListener('click', closeDrawer);
+
+  $('#fab').addEventListener('click', function () {
+    if (token) openDrawer();
+    else { $('#lerr').textContent = ''; $('#lp').value = ''; openModal(loginModal); }
+  });
+
+  $('#loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = $('#lbtn'), box = loginModal.querySelector('.box');
+    btn.classList.add('loading');
+    $('#lerr').textContent = '';
+    run('adminLogin', $('#lu').value, $('#lp').value).then(function (t) {
+      setToken(t);
+      closeModal(loginModal);
+      openDrawer();
+      toast('স্বাগতম, অ্যাডমিন!');
+    }).catch(function (err) {
+      $('#lerr').textContent = msgOf(err);
+      box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
+    }).then(function () { btn.classList.remove('loading'); });
+  });
+
+  $('#logout').addEventListener('click', function () {
+    var t = token;
+    setToken(null);
+    closeDrawer();
+    toast('লগআউট হয়েছে।');
+    if (t) run('adminLogout', t).catch(function () {});
+  });
+
+  function handleAdminError(err) {
+    var m = String((err && err.message) || err);
+    if (m.indexOf('[AUTH]') !== -1) {
+      setToken(null);
+      closeDrawer();
+      toast(msgOf(err), true);
+      setTimeout(function () { openModal(loginModal); }, 400);
+    } else {
+      toast(msgOf(err), true);
+    }
+  }
+
+  function setPeople(list) {
+    people = Array.isArray(list) ? list : [];
+    cachePeople();
+    renderGrid();
+    renderAdminList();
+  }
+
+  function renderAdminList() {
+    var list = $('#alist');
+    list.textContent = '';
+    if (!people.length) list.appendChild(el('p', 'empty', 'এখনো কেউ নেই।'));
+    people.forEach(function (p, i) {
+      var row = el('div', 'arow');
+      row.style.setProperty('--d', (i * 0.04) + 's');
+      var th = el('div', 'thumb'); th.appendChild(photoEl(p)); row.appendChild(th);
+      var nm = el('div', 'nm');
+      nm.appendChild(el('b', null, p.name));
+      nm.appendChild(el('small', null, roleOf(p) + (p.aka ? ' · ' + p.aka : '')));
+      row.appendChild(nm);
+
+      row.appendChild(iconBtn(ICON.up, 'উপরে', i === 0, function (b) { busy(b, run('movePerson', token, p.id, -1)); }));
+      row.appendChild(iconBtn(ICON.down, 'নিচে', i === people.length - 1, function (b) { busy(b, run('movePerson', token, p.id, 1)); }));
+      row.appendChild(iconBtn(ICON.edit, 'সম্পাদনা', false, function () { showForm(p); }));
+      var del = iconBtn(ICON.del, 'মুছুন', false, function (b) {
+        if (!b.classList.contains('armed')) {
+          b.classList.add('armed'); b.textContent = 'নিশ্চিত?';
+          setTimeout(function () { if (b.isConnected) { b.classList.remove('armed'); b.innerHTML = ICON.del; } }, 3000);
+          return;
+        }
+        busy(b, run('deletePerson', token, p.id), 'মুছে ফেলা হয়েছে।');
+      });
+      del.classList.add('danger');
+      row.appendChild(del);
+      list.appendChild(row);
+    });
+  }
+
+  function iconBtn(svg, title, disabled, onClick) {
+    var b = el('button', 'ib');
+    b.type = 'button'; b.title = title; b.setAttribute('aria-label', title);
+    b.innerHTML = svg; b.disabled = !!disabled;
+    b.addEventListener('click', function () { onClick(b); });
+    return b;
+  }
+
+  function busy(btn, promise, okMsg) {
+    var rows = $('#alist');
+    rows.style.pointerEvents = 'none'; rows.style.opacity = '.6';
+    return promise.then(function (list) {
+      setPeople(list);
+      if (okMsg) toast(okMsg);
+    }).catch(handleAdminError).then(function () {
+      rows.style.pointerEvents = ''; rows.style.opacity = '';
+    });
+  }
+
+  /* form */
+  var form = $('#aform'), confirmBox = $('#confirm'), editing = null, pendingPhoto = null, pendingPreview = null, draft = null;
+  function counters() {
+    $('#cn').textContent = bn($('#fname').value.length) + '/৮০';
+    $('#ca').textContent = bn($('#faka').value.length) + '/২০০';
+    $('#cd').textContent = bn($('#fdesc').value.length) + '/৭০০';
+  }
+  ['#fname', '#faka', '#fdesc'].forEach(function (s) { $(s).addEventListener('input', counters); });
+
+  function fillRoleList() {
+    var dl = $('#roleList'); dl.textContent = '';
+    allRoles().forEach(function (r) { var o = document.createElement('option'); o.value = r; dl.appendChild(o); });
+  }
+
+  function showForm(p) {
+    editing = p || null;
+    pendingPhoto = null; pendingPreview = null; draft = null;
+    fillRoleList();
+    $('#aformTitle').textContent = p ? 'সম্পাদনা: ' + p.name : 'নতুন সদস্য';
+    $('#frole').value = p ? (p.role || '') : '';
+    $('#fname').value = p ? p.name : '';
+    $('#faka').value = p ? (p.aka || '') : '';
+    $('#fdesc').value = p ? p.description : '';
+    $('#fphoto').value = '';
+    $('#ferr').textContent = '';
+    var prev = $('#pickPreview'); prev.textContent = '';
+    prev.appendChild(p ? photoEl(p) : el('div', 'initial', '+'));
+    counters();
+    confirmBox.classList.remove('show');
+    form.classList.remove('show'); void form.offsetWidth; form.classList.add('show');
+    $('#addBtn').style.display = 'none';
+    $('.dbody').scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(function () { $('#fname').focus(); }, 80);
+  }
+  function hideForm() {
+    form.classList.remove('show');
+    confirmBox.classList.remove('show');
+    editing = null; pendingPhoto = null; pendingPreview = null; draft = null;
+    $('#addBtn').style.display = '';
+  }
+  $('#addBtn').addEventListener('click', function () { showForm(null); });
+  $('#fcancel').addEventListener('click', hideForm);
+
+  $('#fphoto').addEventListener('change', function () {
+    var file = this.files && this.files[0];
+    if (!file) return;
+    $('#ferr').textContent = '';
+    resizeImage(file, 900).then(function (r) {
+      pendingPhoto = { data: r.data, mimeType: r.mimeType, name: r.name };
+      pendingPreview = r.preview;
+      var prev = $('#pickPreview'); prev.textContent = '';
+      var img = new Image(); img.src = r.preview; img.alt = '';
+      prev.appendChild(img);
+    }).catch(function (err) { $('#ferr').textContent = msgOf(err); });
+  });
+
+  function resizeImage(file, max) {
+    return new Promise(function (resolve, reject) {
+      if (!/^image\//.test(file.type)) return reject(new Error('শুধু ছবি ফাইল দিন।'));
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var w = img.naturalWidth, h = img.naturalHeight;
+        var s = Math.min(1, max / Math.max(w, h));
+        w = Math.round(w * s); h = Math.round(h * s);
+        var c = document.createElement('canvas');
+        c.width = w; c.height = h;
+        var ctx = c.getContext('2d');
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        var dataUrl = c.toDataURL('image/jpeg', 0.86);
+        resolve({ data: dataUrl.split(',')[1], mimeType: 'image/jpeg', preview: dataUrl,
+          name: (file.name || 'photo').replace(/\.[^.]+$/, '') + '.jpg' });
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('ছবিটি পড়া যায়নি। অন্য ছবি চেষ্টা করুন।')); };
+      img.src = url;
+    });
+  }
+
+  // Step 1: the form only builds a preview. Nothing is sent to Google yet.
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = $('#fname').value.trim();
+    if (!name) { $('#ferr').textContent = 'নাম দিতে হবে।'; return; }
+    if (!editing && !pendingPhoto && !window.__gbNoPhotoOk) {
+      $('#ferr').textContent = 'ছবি দেওয়া হয়নি। ছবি ছাড়াই চাইলে আবার "পরবর্তী" চাপুন।';
+      window.__gbNoPhotoOk = true;
+      return;
+    }
+    window.__gbNoPhotoOk = false;
+    $('#ferr').textContent = '';
+    draft = {
+      id: editing ? editing.id : '',
+      role: $('#frole').value.trim(),
+      name: name,
+      aka: $('#faka').value.trim(),
+      description: $('#fdesc').value.trim()
+    };
+    var shown = {
+      role: draft.role, name: draft.name, aka: draft.aka, description: draft.description,
+      previewSrc: pendingPreview,
+      photoUrl: !pendingPreview && editing ? editing.photoUrl : '',
+      photoFallback: !pendingPreview && editing ? editing.photoFallback : ''
+    };
+    var box = $('#confirmPreview'); box.textContent = '';
+    var roleChip = el('div', 'exp'); roleChip.innerHTML = ICON.exp; roleChip.appendChild(el('b', null, roleOf(draft)));
+    box.appendChild(roleChip);
+    box.appendChild(buildCard(shown, 0, false));
+    $('#cerr').textContent = '';
+    form.classList.remove('show');
+    confirmBox.classList.remove('show'); void confirmBox.offsetWidth; confirmBox.classList.add('show');
+    $('.dbody').scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  $('#cback').addEventListener('click', function () {
+    confirmBox.classList.remove('show');
+    form.classList.add('show');
+  });
+
+  // Step 2: only the confirm button uploads.
+  $('#cok').addEventListener('click', function () {
+    if (!draft) return;
+    var btn = $('#cok');
+    btn.classList.add('loading');
+    $('#cerr').textContent = '';
+    var wasEdit = !!draft.id;
+    run('savePerson', token, draft, pendingPhoto).then(function (list) {
+      setPeople(list);
+      hideForm();
+      toast(wasEdit ? 'পরিবর্তন সংরক্ষণ হয়েছে।' : 'নতুন সদস্য যোগ হয়েছে।');
+    }).catch(function (err) {
+      if (String((err && err.message) || err).indexOf('[AUTH]') !== -1) handleAdminError(err);
+      else $('#cerr').textContent = msgOf(err);
+    }).then(function () { btn.classList.remove('loading'); });
+  });
+  ['#fname', '#fphoto'].forEach(function (s) { $(s).addEventListener('change', function () { window.__gbNoPhotoOk = false; }); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var open = document.querySelector('.modal.open');
+    if (open) closeModal(open);
+    else if (drawer.classList.contains('open')) closeDrawer();
+  });
+
+  /* ---------------- go ---------------- */
+  function showLoading() {
+    var root = $('#grid'); root.textContent = '';
+    var p = el('p', 'empty loading-msg', 'লোড হচ্ছে');
+    root.appendChild(p);
+  }
+  function showLoadError() {
+    var root = $('#grid'); root.textContent = '';
+    var p = el('p', 'empty', 'তথ্য আনা যায়নি। ');
+    var b = el('button', 'btn small', 'আবার চেষ্টা করুন');
+    b.type = 'button';
+    b.addEventListener('click', start);
+    p.appendChild(b);
+    root.appendChild(p);
+  }
+  function start() {
+    if (people.length) renderGrid(); else showLoading();
+    loadPeople().then(function (list) {
+      var changed = JSON.stringify(list) !== JSON.stringify(people) || !loaded;
+      loaded = true;
+      people = Array.isArray(list) ? list : [];
+      cachePeople();
+      if (changed) renderGrid();
+    }).catch(function () {
+      if (!people.length) showLoadError();
+    });
+  }
+  start();
+
+  // If the page was opened with an expired session token, forget it quietly.
+  if (token) run('checkSession', token).then(function (ok) { if (!ok) setToken(null); }).catch(function () {});
+})();
+</script>
+</body>
+</html>
