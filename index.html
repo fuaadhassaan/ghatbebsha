@@ -136,6 +136,12 @@ a{color:inherit;text-decoration:none}
 .exp b{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .exp.aka{border-radius:16px;background:rgba(246,196,83,.1);border-color:rgba(246,196,83,.3);color:var(--gold)}
 .exp.aka b{white-space:normal;line-height:1.45}
+.loc{display:flex;align-items:center;justify-content:center;gap:6px;margin:-4px 0 10px;color:#ffb4a2;font-size:14.5px;font-weight:500}
+.loc svg{flex:none;width:16px;height:16px;animation:pin 2.4s ease-in-out infinite}
+.card:hover .loc svg{animation-duration:.8s}
+@keyframes pin{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.loc span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:230px}
+.maplink{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--aqua);font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .info>.exp{margin-bottom:4px}
 .desc{color:var(--muted);font-size:15.5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:4.8em}
 .more{display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:var(--gold);font-weight:600;font-size:15px}
@@ -373,6 +379,7 @@ footer .brand{justify-content:center;margin-bottom:8px}
       <datalist id="roleList"></datalist>
       <label class="field"><span>নাম <small id="cn"></small></span><input id="fname" maxlength="80" required></label>
       <label class="field"><span>ওরফে / ডাকনাম <small id="ca"></small></span><input id="faka" maxlength="200" placeholder="একাধিক হলে কমা দিয়ে লিখুন"></label>
+      <label class="field"><span>অবস্থান <small id="cl"></small></span><input id="floc" maxlength="150" placeholder="যেমন: সাতমাথা, বগুড়া"></label>
       <label class="field"><span>সংক্ষিপ্ত পরিচিতি <small id="cd"></small></span><textarea id="fdesc" maxlength="700"></textarea></label>
       <div class="err" id="ferr"></div>
       <div class="frow">
@@ -421,6 +428,7 @@ footer .brand{justify-content:center;margin-bottom:8px}
   var ICON = {
     exp: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18"/></svg>',
     arrow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
     tag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0L3 13V3h10l7.6 7.6a2 2 0 010 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>',
     user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>',
     up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>',
@@ -554,6 +562,13 @@ footer .brand{justify-content:center;margin-bottom:8px}
       aka.innerHTML = ICON.tag;
       aka.appendChild(el('b', null, 'ওরফে ' + p.aka));
       card.appendChild(aka);
+    }
+    if (p.location) {
+      var loc = el('div', 'loc');
+      loc.innerHTML = ICON.pin;
+      loc.appendChild(el('span', null, p.location));
+      loc.title = p.location;
+      card.appendChild(loc);
     }
     card.appendChild(el('p', 'desc', p.description));
 
@@ -690,6 +705,17 @@ footer .brand{justify-content:center;margin-bottom:8px}
       var l1 = el('div', 'label'); l1.innerHTML = ICON.tag; l1.appendChild(document.createTextNode('ওরফে'));
       info.appendChild(l1);
       info.appendChild(el('p', null, p.aka));
+    }
+    if (p.location) {
+      var l3 = el('div', 'label'); l3.innerHTML = ICON.pin; l3.appendChild(document.createTextNode('অবস্থান'));
+      info.appendChild(l3);
+      var lp = el('p', null, p.location);
+      info.appendChild(lp);
+      var map = el('a', 'maplink', 'ম্যাপে দেখুন ↗');
+      map.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(p.location);
+      map.target = '_blank';
+      map.rel = 'noopener noreferrer';
+      info.appendChild(map);
     }
     if (p.description) {
       var l2 = el('div', 'label'); l2.innerHTML = ICON.user; l2.appendChild(document.createTextNode('পরিচিতি'));
@@ -852,7 +878,7 @@ footer .brand{justify-content:center;margin-bottom:8px}
       var th = el('div', 'thumb'); th.appendChild(photoEl(p)); row.appendChild(th);
       var nm = el('div', 'nm');
       nm.appendChild(el('b', null, p.name));
-      nm.appendChild(el('small', null, roleOf(p) + (p.aka ? ' · ' + p.aka : '')));
+      nm.appendChild(el('small', null, roleOf(p) + (p.location ? ' · 📍 ' + p.location : '') + (p.aka ? ' · ' + p.aka : '')));
       row.appendChild(nm);
 
       row.appendChild(iconBtn(ICON.up, 'উপরে', i === 0, function (b) { busy(b, run('movePerson', token, p.id, -1)); }));
@@ -896,9 +922,10 @@ footer .brand{justify-content:center;margin-bottom:8px}
   function counters() {
     $('#cn').textContent = bn($('#fname').value.length) + '/৮০';
     $('#ca').textContent = bn($('#faka').value.length) + '/২০০';
+    $('#cl').textContent = bn($('#floc').value.length) + '/১৫০';
     $('#cd').textContent = bn($('#fdesc').value.length) + '/৭০০';
   }
-  ['#fname', '#faka', '#fdesc'].forEach(function (s) { $(s).addEventListener('input', counters); });
+  ['#fname', '#faka', '#floc', '#fdesc'].forEach(function (s) { $(s).addEventListener('input', counters); });
 
   function fillRoleList() {
     var dl = $('#roleList'); dl.textContent = '';
@@ -913,6 +940,7 @@ footer .brand{justify-content:center;margin-bottom:8px}
     $('#frole').value = p ? (p.role || '') : '';
     $('#fname').value = p ? p.name : '';
     $('#faka').value = p ? (p.aka || '') : '';
+    $('#floc').value = p ? (p.location || '') : '';
     $('#fdesc').value = p ? p.description : '';
     $('#fphoto').value = '';
     $('#ferr').textContent = '';
@@ -988,10 +1016,11 @@ footer .brand{justify-content:center;margin-bottom:8px}
       role: $('#frole').value.trim(),
       name: name,
       aka: $('#faka').value.trim(),
+      location: $('#floc').value.trim(),
       description: $('#fdesc').value.trim()
     };
     var shown = {
-      role: draft.role, name: draft.name, aka: draft.aka, description: draft.description,
+      role: draft.role, name: draft.name, aka: draft.aka, location: draft.location, description: draft.description,
       previewSrc: pendingPreview,
       photoUrl: !pendingPreview && editing ? editing.photoUrl : '',
       photoFallback: !pendingPreview && editing ? editing.photoFallback : ''
